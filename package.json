@@ -1,0 +1,29 @@
+{
+  "name": "rollercoaster_tykuna",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "type":"module",
+  "scripts": {
+    "dev":"nodemon src/index.js",
+    "start":"node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LdMe/rollercoaster_tykuna.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LdMe/rollercoaster_tykuna/issues"
+  },
+  "homepage": "https://github.com/LdMe/rollercoaster_tykuna#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
