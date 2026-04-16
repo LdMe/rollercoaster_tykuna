@@ -11,40 +11,45 @@ function getParsedId(id) {
     }
     return idNum;
 }
-function getAllRides(req, res) {
-    const rides = rideModel.getAllRides();
+async function getAllRides(req, res) {
+    const rides = await rideModel.findAll();
     res.json(rides);
 }
 
-function getRideById(req, res) {
+async function getRideById(req, res) {
     const id = getParsedId(req.params.id);
-    const ride = rideModel.getRideById(id);
+    const ride = await rideModel.findByPk(id);
     res.json(ride);
 }
 
-function createRide(req, res) {
-    const newRide = rideModel.createRide(req.ride);
+async function createRide(req, res) {
+    const newRide = await rideModel.create(req.ride);
+    console.log("newRide",newRide)
     res.json(newRide);
 }
 
-function updateRide(req, res) {
+async function updateRide(req, res) {
     const id = getParsedId(req.params.id)
 
-    const updatedRide = rideModel.updateRide(id, req.body);
-    res.json(updatedRide)
+    const updatedRide = await rideModel.update(req.body,{where:{id:id}});
+    const ride = await rideModel.findByPk(id);
+
+    res.json(ride)
 }
 
-function deleteRide(req, res) {
+async function deleteRide(req, res) {
     const id = getParsedId(req.params.id)
-    const deletedRide = rideModel.deleteRide(id);
+    const deletedRide = await rideModel.destroy({where:{id:id}});
     res.json(deletedRide);
 }
 
-function setStatus(req, res) {
+async function setStatus(req, res) {
     const status = req.body.status;
     const id = getParsedId(req.params.id);
-    const updatedRide = rideModel.updateRide(id, { status });
-    res.json(updatedRide)
+    const updatedRide = await rideModel.update( { status },{where:{id:id}});
+    const ride = await rideModel.findByPk(id);
+
+    res.json(ride)
 }
 
 export const functions = {

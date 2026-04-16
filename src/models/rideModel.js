@@ -1,47 +1,38 @@
-import { rides } from "../data/data.js";
-import { RideNotFoundError } from "../utils/errors/rideErrors.js";
-function getAllRides(){
-    return rides;
-}
+import { DataTypes, Sequelize} from "sequelize";
+import sequelize from "../config/db.js";
 
-function getRideById(id){
-    return rides.find(r => r.id === id);
-}
-
-function createRide(data){
-    const maxId = Math.max(...rides.map(r=>r.id))
-    data.id= maxId+1;
-    rides.push(data);
-    return data;
-}
-
-function updateRide(id,data){
-    const ride = getRideById(id);
-    if(!ride){
-        throw new RideNotFoundError();
+const RideModel = sequelize.define("Ride",{
+    id:{
+        type:DataTypes.INTEGER,
+        primaryKey:true,
+        autoIncrement:true
+    },
+    name:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    creationDate:{
+        type:DataTypes.DATEONLY,
+        defaultValue:Sequelize.NOW
+    },
+    durationSeconds:{
+        type:DataTypes.INTEGER,
+        validate:{
+            min:10
+        }
+    },
+    minAge:DataTypes.INTEGER,
+    minHeight: DataTypes.INTEGER,
+    status:{
+        type:DataTypes.ENUM("open","closed","testing"),
+        defaultValue: "closed"
     }
-    const updatedRide = {...ride,...data};
-    const index = rides.findIndex(r=>r.id===id);
-    rides[index] = updatedRide;
-    return updatedRide;
-}
 
-function deleteRide(id){
-    const index = rides.findIndex(r=>r.id===id);
-    if(index === -1){
-         throw new RideNotFoundError();
-    }
-    const deletedRide = rides[index];
-    rides.splice(index,1);
-    return deletedRide
+}, {
+tableName: 'rides', // nombre real de la tabla en la base de datos
+timestamps: true,
+// añade automáticamente createdAt y updatedAt
+})
 
-}
+export default RideModel;
 
-export const functions = {
-    getAllRides,
-    getRideById,
-    createRide,
-    updateRide,
-    deleteRide
-}
-export default functions;

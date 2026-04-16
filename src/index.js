@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import router from "./routes/router.js";
+import { checkDB,syncDB } from "./config/db.js";
 
 dotenv.config();
 const PORT = process.env.APP_PORT;
@@ -15,7 +16,8 @@ app.get("/",(req,res)=>{
     res.send("hello world");
 })
 
-
+checkDB();
+syncDB();
 app.listen(PORT,()=>{
     console.log(`Servidor en marcha en puerto ${PORT}`);
 })

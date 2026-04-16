@@ -20,7 +20,7 @@ function checkRideBody(req,res,next){
         req.ride = {
             categoryId,name,creationDate,durationSeconds,minAge,minHeightCm,status
         }
-        next();
+        return next();
     }
     // throw new RideBodyNotCorrectError(errors.join(", "))
     res.status(400).json({error:errors.join(", ")});
