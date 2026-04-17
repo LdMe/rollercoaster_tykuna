@@ -7,6 +7,9 @@ const RideModel = sequelize.define("Ride",{
         primaryKey:true,
         autoIncrement:true
     },
+    categoryId:{
+        type:DataTypes.INTEGER,
+    },
     name:{
         type:DataTypes.STRING,
         allowNull:false

@@ -1,4 +1,4 @@
-import rideModel from "../../models/rideModel.js";
+import {RideCategoryModel, RideModel} from "../../models/index.js";
 import { IDNotNumberError } from "../../utils/errors/genericErrors.js";
 
 /**
@@ -12,18 +12,24 @@ function getParsedId(id) {
     return idNum;
 }
 async function getAllRides(req, res) {
-    const rides = await rideModel.findAll();
+    const rides = await RideModel.findAll({
+        include:{
+            model:RideCategoryModel,
+            as:"category",
+            attributes:["id","name"]
+        }
+    });
     res.json(rides);
 }
 
 async function getRideById(req, res) {
     const id = getParsedId(req.params.id);
-    const ride = await rideModel.findByPk(id);
+    const ride = await RideModel.findByPk(id);
     res.json(ride);
 }
 
 async function createRide(req, res) {
-    const newRide = await rideModel.create(req.ride);
+    const newRide = await RideModel.create(req.ride);
     console.log("newRide",newRide)
     res.json(newRide);
 }
@@ -31,23 +37,24 @@ async function createRide(req, res) {
 async function updateRide(req, res) {
     const id = getParsedId(req.params.id)
 
-    const updatedRide = await rideModel.update(req.body,{where:{id:id}});
-    const ride = await rideModel.findByPk(id);
+    console.log("ride",req.ride)
+    const updatedRide = await RideModel.update(req.ride,{where:{id:id}});
+    const ride = await RideModel.findByPk(id);
 
     res.json(ride)
 }
 
 async function deleteRide(req, res) {
     const id = getParsedId(req.params.id)
-    const deletedRide = await rideModel.destroy({where:{id:id}});
+    const deletedRide = await RideModel.destroy({where:{id:id}});
     res.json(deletedRide);
 }
 
 async function setStatus(req, res) {
     const status = req.body.status;
     const id = getParsedId(req.params.id);
-    const updatedRide = await rideModel.update( { status },{where:{id:id}});
-    const ride = await rideModel.findByPk(id);
+    const updatedRide = await RideModel.update( { status },{where:{id:id}});
+    const ride = await RideModel.findByPk(id);
 
     res.json(ride)
 }
