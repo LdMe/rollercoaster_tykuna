@@ -10,11 +10,16 @@ const app = express();
 app.use(express.urlencoded());
 app.use(express.json());
 
+app.use(express.static("public"))
+app.set('views', './src/views')
 
-app.use("/",router);
+app.set('view engine', 'pug')
+
 app.get("/",(req,res)=>{
-    res.send("hello world");
+    res.render("index")
 })
+app.use("/",router);
+
 
 checkDB();
 // syncDB();

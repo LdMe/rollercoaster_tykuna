@@ -1,14 +1,14 @@
 
 import rideService from "../../services/rideService.js";
-import { getParsedId,parseError } from "../../utils/functions.js";
+import { getParsedId,parseViewError } from "../../utils/functions.js";
 
 
 async function getAllRides(req, res) {
     try {
         const rides = await rideService.getAllRides();
-        res.json(rides);
+        res.render("rides/list",{rides});
     } catch (error) {
-        parseError(error,res);
+        parseViewError(error,res);
     }
 }
 
@@ -16,9 +16,9 @@ async function getRideById(req, res) {
     try {
     const id = getParsedId(req.params.id);
     const ride = await rideService.getRideById(id);
-    res.json(ride);
+    res.render("rides/details",{ride});
     } catch (error) {
-        parseError(error,res);
+        parseViewError(error,res);
     }
 }
 
@@ -28,7 +28,7 @@ async function createRide(req, res) {
     const ride = await rideService.createRide(req.ride);
     res.json(ride);
     } catch (error) {
-        parseError(error,res);
+        parseViewError(error,res);
     }
 }
 
@@ -38,7 +38,7 @@ async function updateRide(req, res) {
     const ride = await rideService.updateRide(id,req.ride);
     res.json(ride);
     } catch (error) {
-        parseError(error,res);
+        parseViewError(error,res);
     }
     
 }
@@ -49,7 +49,7 @@ async function deleteRide(req, res) {
     const ride = await rideService.deleteRide(id);
     res.json(ride);
     } catch (error) {
-        parseError(error,res);
+        parseViewError(error,res);
     }
     
 }
@@ -60,7 +60,7 @@ async function setStatus(req, res) {
     const ride = await rideService.setStatus(id,req.body.status);
     res.json(ride);
     } catch (error) {
-        parseError(error,res);
+        parseViewError(error,res);
     }
 }
 
