@@ -1,0 +1,27 @@
+//- views/rides/_form.pug
+div.form-group
+    label(for="name") Nombre de la atracción
+    input#name(type="text" name="name" value=(ride ? ride.name : '') required)
+
+div.form-group
+    label(for="categoryId") Categoría (ID)
+    input#categoryId(type="number" name="categoryId" value=(ride ? ride.categoryId : '') required)
+
+div.form-group
+    label(for="durationSeconds") Duración (segundos)
+    input#durationSeconds(type="number" name="durationSeconds" value=(ride ? ride.durationSeconds : '') min="10" required)
+
+div.form-group
+    label(for="minHeight") Altura mínima (cm)
+    input#minHeight(type="number" name="minHeight" value=(ride ? ride.minHeight : '') required)
+
+div.form-group
+    label(for="minAge") Edad mínima
+    input#minAge(type="number" name="minAge" value=(ride ? ride.minAge : '') required)
+
+div.form-group
+    label(for="status") Estado
+    select#status(name="status" required)
+        option(value="open" selected=(ride && ride.status === 'open')) Abierto
+        option(value="closed" selected=(!ride || ride.status === 'closed')) Cerrado
+        option(value="testing" selected=(ride && ride.status === 'testing')) En Pruebas

@@ -1,8 +1,14 @@
 extends ../layout
 
-block content 
+block title
+    title Atracciones - Tykuna
 
-    h1 Atracciones
-    section(class="rides-list")
-        each ride in rides 
-            include rideCard
+block content 
+    main
+        div.header-actions
+            h1 Atracciones del Parque
+            a.btn(href="/rides/create") + Añadir Atracción
+
+        section.rides-list
+            each ride in rides 
+                include rideCard

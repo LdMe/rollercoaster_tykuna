@@ -1,0 +1,15 @@
+extends ../layout
+
+block title
+    title Editar: #{ride.name}
+
+block content
+    main
+        h1 Editar Atracción: #{ride.name}
+
+        form(action=`/rides/${ride.id}/edit` method="POST")
+            include _form.pug
+            
+            div.actions-group
+                button.btn(type="submit") Actualizar Cambios
+                a.btn-secondary(href=`/rides/${ride.id}`) Cancelar

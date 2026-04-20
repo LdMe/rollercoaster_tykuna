@@ -1,6 +1,9 @@
-
-article(class="ride ride-card")
+article.ride.ride-card
     h3= ride.name 
-    p Categoría: #{ride.category.name}
-    p Estado: #{ride.status}
+    if ride.category
+        p #[strong Categoría:] #{ride.category.name}
+    p #[strong Estado:] 
+        span(class=`status-${ride.status}`) #{ride.status}
     
+    div.actions-group
+        a.btn(href=`/rides/${ride.id}`) Ver detalles

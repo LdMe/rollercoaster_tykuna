@@ -1,0 +1,15 @@
+extends ../layout
+
+block title
+    title Nueva Atracción
+
+block content
+    main
+        h1 Añadir Nueva Atracción
+        
+        form(action="/rides/create" method="POST")
+            include _form.pug
+            
+            div.actions-group
+                button.btn(type="submit") Guardar Atracción
+                a.btn-secondary(href="/rides") Cancelar
