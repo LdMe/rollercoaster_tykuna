@@ -32,6 +32,24 @@ async function createRide(req, res) {
     }
 }
 
+async function createRideForm(req, res) {
+    try {
+        res.render("rides/create");
+    } catch (error) {
+        parseViewError(error,res);
+    }
+}
+
+async function updateRideForm(req, res) {
+    try {
+        const id = getParsedId(req.params.id);
+        const ride = await rideService.getRideById(id);
+        res.render("rides/edit",{ride});
+    } catch (error) {
+        parseViewError(error,res);
+    }
+}
+
 async function updateRide(req, res) {
      try {
     const id = getParsedId(req.params.id);
@@ -70,7 +88,9 @@ export const functions = {
     createRide,
     updateRide,
     setStatus,
-    deleteRide
+    deleteRide,
+    createRideForm,
+    updateRideForm
 }
 
 export default functions;
