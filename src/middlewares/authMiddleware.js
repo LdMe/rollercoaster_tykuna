@@ -31,8 +31,10 @@ async function checkCredentials(req, res, next) {
         return res.redirect("/auth/login?message=Credenciales incorrectas");
     }
     req.session.user = {
+        id: user.id,
         email: user.email,
-        role: user.role
+        role: user.role,
+        name:user.name
     }
     next();
 }

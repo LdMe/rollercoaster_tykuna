@@ -5,6 +5,8 @@ block title
 
 block content 
     main
+        if user
+            h1 Hola #{user.name}
         div.header-actions
             h1 Atracciones del Parque
             if(user && user.role==="admin")
