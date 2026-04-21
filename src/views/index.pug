@@ -1,10 +1,33 @@
 extends layout 
 
 block title 
-    title Rollercoaster Tykuna 
+    title Inicio - Rollercoaster Tykuna 
 
 block navlinks 
+    //- Puedes añadir enlaces adicionales a la barra de navegación aquí si lo necesitas
     li 
-        a(href="http://", target="_blank", rel="noopener noreferrer") Admin
+        a(href="/rides") Atracciones
+
 block content 
-    h1 Rollercoaster Tycoona Welcome page 
+    main
+        h1 Bienvenido a Rollercoaster Tykuna 
+        p Sistema de gestión integral para el parque de atracciones. Selecciona el módulo que deseas administrar:
+
+        div.dashboard-cards
+            //- Módulo de Atracciones (Activo)
+            div.card
+                h2 🎢 Atracciones
+                p Gestiona el catálogo de atracciones, sus categorías y estados operativos.
+                a.btn(href="/rides") Entrar a Atracciones
+
+            //- Módulo de Usuarios (Pendiente de implementar)
+            div.card
+                h2 👥 Usuarios
+                p Administra la base de datos de visitantes registrados.
+                a.btn-secondary(href="#" style="cursor: not-allowed; opacity: 0.7;") Próximamente
+
+            //- Módulo de Tickets (Pendiente de implementar)
+            div.card
+                h2 🎟️ Tickets
+                p Controla las ventas, la validez y los tipos de entradas.
+                a.btn-secondary(href="#" style="cursor: not-allowed; opacity: 0.7;") Próximamente
