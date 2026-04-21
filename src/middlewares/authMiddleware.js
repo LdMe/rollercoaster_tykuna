@@ -1,5 +1,6 @@
 import userService from "../services/userService.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 async function isRegisterDataCorrect(req, res, next) {
     const { name, email, phone, password, passwordRepeat, dateOfBirth } = req.body;
@@ -57,9 +58,10 @@ const verifyToken = (req, res, next) => {
         // jwt.verify lanza un error si el token es inválido o ha expirado
         const payload = jwt.verify(token, process.env.JWT_SECRET)
         // Adjuntamos el payload a req para que los controladores lo usen
-        req.usuario = payload // { id: 1, rol: 'admin', iat: ..., exp: ... }
+        req.user = payload // { id: 1, rol: 'admin', iat: ..., exp: ... }
         next()
     } catch (error) {
+        console.error(error)
         // JsonWebTokenError: token malformado o firma inválida
         // TokenExpiredError: token expirado
         return res.status(401).json({ error: 'Token inválido o expirado' })
@@ -73,6 +75,16 @@ function requireRole(...roles) {
         }
         else {
             res.status(403).redirect("/auth/login?message=Inicia sesión")
+        }
+    }
+}
+function requireRoleApi(...roles) {
+    return (req, res, next) => {
+        if (roles.includes(req.user?.role)) {
+            next();
+        }
+        else {
+            res.status(403).json({ error: "Acceso denegado" });
         }
     }
 }
@@ -104,5 +116,6 @@ export {
     requireRole,
     // requireAdmin,
     injectUserToViews,
-    verifyToken
+    verifyToken,
+    requireRoleApi
 }

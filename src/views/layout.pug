@@ -11,9 +11,18 @@ body
         nav(class="navbar") 
             ul 
                 li  
-                    a(href="/") Home
+                    a(href="/") RollerCoaster TyKuna
                         
                 block navlinks
+                if !user
+                    li 
+                        a(href="/auth/login") Login
+                    li 
+                        a(href="/auth/register") Registro
+                else
+                    li 
+                    form(action="/auth/logout" method="POST")
+                        button(type="submit") Logout
     block content
         h1 Hola mundo desde pug
     block scripts
