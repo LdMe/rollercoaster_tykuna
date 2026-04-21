@@ -6,7 +6,8 @@ block title
 block content 
     main
         h1= ride.name
-        
+        if message 
+            p.message= message
         div.ride-details
             p #[strong ID:] #{ride.id}
             p #[strong Estado:] #{ride.status}
@@ -16,10 +17,11 @@ block content
             p #[strong Fecha creación:] #{ride.creationDate}
             
         div.actions-group
-            a.btn(href=`/rides/${ride.id}/edit`) Editar Datos
-            
-            //- Formulario para eliminar sin JavaScript
-            form(action=`/rides/${ride.id}/delete` method="POST" onsubmit="return confirm('¿Borrar esta atracción?');" style="display:inline;")
-                button.btn-danger(type="submit") Eliminar Atracción
-            
+            if(user && user.role==="admin")
+                a.btn(href=`/rides/${ride.id}/edit`) Editar Datos
+                
+                //- Formulario para eliminar sin JavaScript
+                form(action=`/rides/${ride.id}/delete` method="POST" onsubmit="return confirm('¿Borrar esta atracción?');" style="display:inline;")
+                    button.btn-danger(type="submit") Eliminar Atracción
+                
             a.btn-secondary(href="/rides") Volver al listado

@@ -1,0 +1,23 @@
+extends ../layout 
+
+block content
+    h1 Registro de usuario 
+    if message 
+        p.message= message
+    form(action="/auth/register", method="post") 
+        label(for="name") Nombre 
+        input#name(type="text", name="name" required) 
+        label(for="email") Email 
+        input#email(type="email", name="email" required) 
+        label(for="phone") Teléfono (opcional) 
+        input#phone(type="text", name="phone") 
+        label(for="dateOfBirth") Fecha de nacimiento (opcional) 
+        input#dateOfBirth(type="date", name="dateOfBirth") 
+        label(for="password") Contraseña 
+        input#password(type="password", name="password")
+        label(for="passwordRepeat") Repetir Contraseña 
+        input#passwordRepeat(type="password", name="passwordRepeat")  
+        button(type="submit") Registrarse 
+
+    p Ya tienes cuenta?
+        a(href="/auth/login") Inicia sesión

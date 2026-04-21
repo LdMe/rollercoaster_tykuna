@@ -14,6 +14,10 @@ const UserModel = sequelize.define("Ride",{
     dateOfBirth:{
         type:DataTypes.DATEONLY,
     },
+    role:{
+        type: DataTypes.ENUM("worker","admin"),
+        default:"worker"
+    },
     email: {
         type:DataTypes.STRING,
         validate:{

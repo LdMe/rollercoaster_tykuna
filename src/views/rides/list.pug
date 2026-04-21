@@ -7,7 +7,8 @@ block content
     main
         div.header-actions
             h1 Atracciones del Parque
-            a.btn(href="/rides/create") + Añadir Atracción
+            if(user && user.role==="admin")
+                a.btn(href="/rides/create") + Añadir Atracción
 
         section.rides-list
             each ride in rides 

@@ -22,5 +22,6 @@ RideModel.belongsToMany(TicketModel,{through:"ticket_uses_ride",foreignKey:"ride
 
 export {
     RideCategoryModel,
-    RideModel
+    RideModel,
+    UserModel
 }

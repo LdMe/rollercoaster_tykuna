@@ -3,12 +3,12 @@ BEGIN;
 -- --------------------------------------------------------
 -- 1. Insertamos 5 Usuarios
 -- --------------------------------------------------------
-INSERT INTO public.users (id, name, "dateOfBirth", email, password, phone, "createdAt", "updatedAt") VALUES
-(1, 'Juan Pérez', '1990-05-15', 'juan.perez@example.com', 'hashed_pass_123', '+34600111222', NOW(), NOW()),
-(2, 'María Gómez', '1985-08-22', 'maria.gomez@example.com', 'hashed_pass_456', '+34600333444', NOW(), NOW()),
-(3, 'Carlos López', '2005-11-10', 'carlos.lopez@example.com', 'hashed_pass_789', '+34600555666', NOW(), NOW()),
-(4, 'Ana Martínez', '1998-02-28', 'ana.martinez@example.com', 'hashed_pass_321', '+34600777888', NOW(), NOW()),
-(5, 'Luis Fernández', '2010-07-07', 'luis.fernandez@example.com', 'hashed_pass_654', '+34600999000', NOW(), NOW());
+INSERT INTO public.users (id, name, "dateOfBirth", email,role, password, phone, "createdAt", "updatedAt") VALUES
+(1, 'Juan Pérez', '1990-05-15', 'admin@mail.com', 'admin','$2b$10$hRxk1hm6jxOaXKFsUkTT3.YPFBom7QEKBerYVKu1/fvp.rGT2evaS', '+34600111222', NOW(), NOW()),
+(2, 'María Gómez', '1985-08-22', 'maria.gomez@example.com','worker', '$2b$10$hRxk1hm6jxOaXKFsUkTT3.YPFBom7QEKBerYVKu1/fvp.rGT2evaS', '+34600333444', NOW(), NOW()),
+(3, 'Carlos López', '2005-11-10', 'carlos.lopez@example.com','worker', '$2b$10$hRxk1hm6jxOaXKFsUkTT3.YPFBom7QEKBerYVKu1/fvp.rGT2evaS', '+34600555666', NOW(), NOW()),
+(4, 'Ana Martínez', '1998-02-28', 'ana.martinez@example.com','worker', '$2b$10$hRxk1hm6jxOaXKFsUkTT3.YPFBom7QEKBerYVKu1/fvp.rGT2evaS', '+34600777888', NOW(), NOW()),
+(5, 'Luis Fernández', '2010-07-07', 'luis.fernandez@example.com','worker', 'has$2b$10$hRxk1hm6jxOaXKFsUkTT3.YPFBom7QEKBerYVKu1/fvp.rGT2evaShed_pass_654', '+34600999000', NOW(), NOW());
 
 -- --------------------------------------------------------
 -- 2. Insertamos 5 Categorías de Atracciones

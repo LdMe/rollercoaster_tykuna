@@ -17,6 +17,9 @@ ALTER TABLE IF EXISTS public.tickets DROP CONSTRAINT IF EXISTS "tickets_userId_f
 DROP TYPE IF EXISTS ride_status;
 CREATE TYPE ride_status AS ENUM ('open','closed','testing');
 
+DROP TYPE IF EXISTS user_role;
+CREATE TYPE user_role AS ENUM ('worker','admin');
+
 DROP TABLE IF EXISTS public."rideCategories";
 
 CREATE TABLE IF NOT EXISTS public."rideCategories"
@@ -90,6 +93,7 @@ CREATE TABLE IF NOT EXISTS public.users
     id serial NOT NULL,
     name character varying(255) COLLATE pg_catalog."default" NOT NULL,
     "dateOfBirth" date,
+    role user_role DEFAULT 'worker',
     email character varying(255) COLLATE pg_catalog."default",
     password character varying(255) COLLATE pg_catalog."default" NOT NULL,
     phone character varying(255) COLLATE pg_catalog."default",

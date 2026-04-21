@@ -4,8 +4,10 @@ div.form-group
     input#name(type="text" name="name" value=(ride ? ride.name : '') required)
 
 div.form-group
-    label(for="categoryId") Categoría (ID)
-    input#categoryId(type="number" name="categoryId" value=(ride ? ride.categoryId : '') required)
+    label(for="categoryId") Categoría
+    select#categoryId(name="categoryId" )
+        each category of categories 
+            option(value=category.id selected=(ride ? ride.categoryId=== category.id: false))= category.name
 
 div.form-group
     label(for="durationSeconds") Duración (segundos)

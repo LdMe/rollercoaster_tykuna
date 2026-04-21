@@ -1,0 +1,13 @@
+extends ../layout
+block content
+    h1 Login
+    if message 
+            p.message= message
+    form(action="/auth/login", method="post")
+        label(for="email") Email 
+        input#email(type="email", name="email" required value="asd@mail.com") 
+        label(for="password") Contraseña 
+        input#password(type="password", name="password" value="123") 
+        button(type="submit") Iniciar sesión 
+    p Aún no estás registrado?
+        a(href="/auth/register") Registrate
