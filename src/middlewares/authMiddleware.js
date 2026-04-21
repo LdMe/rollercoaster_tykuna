@@ -34,7 +34,7 @@ async function checkCredentials(req, res, next) {
         id: user.id,
         email: user.email,
         role: user.role,
-        name:user.name
+        name: user.name
     }
     next();
 }
@@ -46,7 +46,27 @@ async function isLoggedIn(req, res, next) {
         return res.redirect("/auth/login?message=Inicia sesión");
     }
 }
-async function requireRole(...roles) {
+const verifyToken = (req, res, next) => {
+    // El token llega en la cabecera: Authorization: Bearer <token>
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ error: 'Token no proporcionado' })
+    }
+    const token = authHeader.split(' ')[1]
+    try {
+        // jwt.verify lanza un error si el token es inválido o ha expirado
+        const payload = jwt.verify(token, process.env.JWT_SECRET)
+        // Adjuntamos el payload a req para que los controladores lo usen
+        req.usuario = payload // { id: 1, rol: 'admin', iat: ..., exp: ... }
+        next()
+    } catch (error) {
+        // JsonWebTokenError: token malformado o firma inválida
+        // TokenExpiredError: token expirado
+        return res.status(401).json({ error: 'Token inválido o expirado' })
+    }
+}
+
+function requireRole(...roles) {
     return (req, res, next) => {
         if (roles.includes(req.session.user.role)) {
             next();
@@ -56,25 +76,24 @@ async function requireRole(...roles) {
         }
     }
 }
-async function requireAdmin(req, res, next) {
-    if (req.session.user.role === "admin") {
-        next();
-    }
-    else {
-        res.status(403).redirect("/auth/login?message=Inicia sesión")
-    }
-}
+// async function requireAdmin(req, res, next) {
+//     if (req.session.user.role === "admin") {
+//         next();
+//     }
+//     else {
+//         res.status(403).redirect("/auth/login?message=Inicia sesión")
+//     }
+// }
 
 const injectUserToViews = (req, res, next) => {
-  // Verificamos si existe la sesión y el usuario dentro de ella
-  if (req.session && req.session.user) {
-    res.locals.user = req.session.user;
-  } else {
-    res.locals.user = null; // Opcional: asegura que 'user' esté definido como null si no hay sesión
-  }
-  
-  // Es vital llamar a next() para que la petición continúe su flujo
-  next();
+    // Verificamos si existe la sesión y el usuario dentro de ella
+    if (req.session && req.session.user) {
+        res.locals.user = req.session.user;
+    } else {
+        res.locals.user = null; // Opcional: asegura que 'user' esté definido como null si no hay sesión
+    }
+
+    next();
 };
 
 
@@ -83,6 +102,7 @@ export {
     checkCredentials,
     isLoggedIn,
     requireRole,
-    requireAdmin,
-    injectUserToViews
+    // requireAdmin,
+    injectUserToViews,
+    verifyToken
 }
