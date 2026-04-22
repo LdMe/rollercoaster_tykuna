@@ -5,8 +5,20 @@ import rideCategoryService from "../../services/rideCategoryService.js";
 
 async function getAllRides(req, res) {
     try {
-        const rides = await rideService.getAllRides();
-        res.render("rides/list", { rides });
+        const {categoryId,status,page,limit} = req.query;
+        const filters= {};
+
+        if(categoryId){
+            filters.categoryId=categoryId
+        }
+        if(status){
+            filters.status=status;
+        }
+        const realPage = page ? parseInt(page) : 1;
+        const realLimit = limit ? parseInt(limit): 2;
+        const rides = await rideService.getAllRides(filters,realPage,realLimit);
+        const categories = await rideCategoryService.getAllRideCategories();
+        res.render("rides/list", { rides,categories });
     } catch (error) {
         parseViewError(error, res);
     }

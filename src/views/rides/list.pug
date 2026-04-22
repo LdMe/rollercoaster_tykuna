@@ -7,11 +7,29 @@ block content
     main
         if user
             h1 Hola #{user.name}
+        form(action="/rides", method="get") 
+            label(for="categoryId")
+            select#categoryId(name="categoryId")  
+                option(value="") Todas
+                each category of categories 
+                    option(value=category.id)= category.name
+            label(for="status")
+            select#status(name="status") 
+                option(value="") Todos
+                option(value="open") Abiertos 
+                option(value="testing") En pruebas 
+                option(value="closed") Cerrados  
+            button Filtrar
         div.header-actions
             h1 Atracciones del Parque
             if(user && user.role==="admin")
                 a.btn(href="/rides/create") + Añadir Atracción
 
+        p Página: #{rides.currentPage} de #{rides.totalPages}
+        if rides.prevPage > 0
+            a(href="/rides?page="+rides.prevPage)  Anterior
+        if rides.nextPage > rides.currentPage
+            a(href="/rides?page="+rides.nextPage)  Siguiente
         section.rides-list
-            each ride in rides 
+            each ride in rides.rows 
                 include rideCard

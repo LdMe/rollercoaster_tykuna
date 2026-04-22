@@ -4,7 +4,7 @@ import { checkRideBody,checkUpdateRideBody } from "../../middlewares/rideMiddlew
 import { isLoggedIn,requireRole } from "../../middlewares/authMiddleware.js";
 const router = Router();
 
-router.use(isLoggedIn);
+// router.use(isLoggedIn);
 
 router.get("/",rideViewController.getAllRides);
 
