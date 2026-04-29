@@ -1,5 +1,20 @@
 import { RideCategoryModel, RideModel } from "../models/index.js";
 
+/**
+ * @nameSpace RideService
+ */
+
+
+/**
+ *  Conseguir todas las atracciones, se pueden filtrar
+ * @async
+ * @private
+ * @memberof RideService
+ * @param {object} filters 
+ * @param {number} page 
+ * @param {number} limit 
+ * @returns Promise<Ride[]>
+ */
 async function getAllRides(filters = {}, page=1,limit=2) {
 
     const realPage = Math.max(page, 1);
@@ -23,10 +38,18 @@ async function getAllRides(filters = {}, page=1,limit=2) {
     return rides;
 }
 
+
+/**
+ * Conseguir una atraccion por id
+ * @memberof RideService
+ * @param {number} id 
+ * @returns Ride
+ */
 async function getRideById(id) {
     const ride = await RideModel.findByPk(id);
     return ride;
 }
+
 
 async function createRide(rideData) {
     const newRide = await RideModel.create(rideData);

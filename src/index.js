@@ -4,6 +4,9 @@ import router from "./routes/router.js";
 import { checkDB, syncDB } from "./config/db.js";
 import session from "express-session";
 import { injectUserToViews } from "./middlewares/authMiddleware.js";
+import YAML from "yamljs";
+import swaggerUi from 'swagger-ui-express';
+
 
 dotenv.config();
 const PORT = process.env.APP_PORT;
@@ -17,7 +20,7 @@ app.use(session({
 app.use(injectUserToViews);
 app.use(express.urlencoded());
 app.use(express.json());
-
+app.use('/api-docs',swaggerUi.serve, swaggerUi.setup(YAML.load("./swagger.yaml")));
 app.use(express.static("public"))
 app.set('views', './src/views')
 

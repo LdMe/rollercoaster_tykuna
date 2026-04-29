@@ -1,6 +1,16 @@
 import { DataTypes, Sequelize} from "sequelize";
 import sequelize from "../config/db.js";
-
+/**
+ * @typedef {Object} RideCategory
+ * @memberof Models
+ * @property {number} id - identificador de categoría
+ * @property {string} name - nombre de la categoría
+ * @example 
+ * const rideCategoryModel = {
+ * id: 1,
+ * name: "montaña rusa"
+ * }
+ */
 const RideCategoryModel = sequelize.define("RideCategory",{
     id:{
         type:DataTypes.INTEGER,

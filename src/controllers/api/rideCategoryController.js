@@ -1,9 +1,7 @@
 import {RideCategoryModel,RideModel} from "../../models/index.js";
 import { IDNotNumberError } from "../../utils/errors/genericErrors.js";
 
-/**
- * helper para convertir id en numerico
- */
+
 function getParsedId(id) {
     const idNum = parseInt(id);
     if (!idNum || isNaN(idNum)) {

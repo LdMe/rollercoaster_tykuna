@@ -4,6 +4,8 @@ import { checkRideBody,checkUpdateRideBody } from "../../middlewares/rideMiddlew
 import{ verifyToken,requireRoleApi } from "../../middlewares/authMiddleware.js";
 const router = Router();
 router.use(verifyToken);
+
+
 router.get("/",rideController.getAllRides);
 
 router.get("/:id",requireRoleApi("admin"),rideController.getRideById)
